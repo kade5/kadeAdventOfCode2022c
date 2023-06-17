@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 int mget(char a) {
@@ -31,8 +32,11 @@ int game_score1(char o, char p, int char_map[]) {
     return p_play + 3;
   } else if (o_play == get_opponent_play_win(p_play)) {
     return p_play + 6;
-  } else {
+  } else if (o_play == get_opponent_play_lose(p_play)) {
     return p_play;
+  } else {
+    printf("Not a valid play\n");
+    exit(EXIT_FAILURE);
   }
 }
 
