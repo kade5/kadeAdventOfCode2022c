@@ -36,6 +36,22 @@ int game_score1(char o, char p, int char_map[]) {
   }
 }
 
+int game_score2(char o, char p, int char_map[]) {
+  int o_play = char_map[mget(o)];
+
+  switch (p) {
+  case 'Y':
+    return o_play + 3;
+  case 'X':
+    return get_opponent_play_win(o_play);
+  case 'Z':
+    return get_opponent_play_lose(o_play) + 6;
+  default:
+    printf("Invalid Strategy\n");
+    exit(EXIT_FAILURE);
+  }
+}
+
 int rps_total_score(char *filename, int game_logic(char, char, int[])) {
   FILE *fp = fopen(filename, "r");
 
@@ -63,5 +79,7 @@ int main() {
   char filename[] = "rps.txt";
   printf("Your total score for part 1 is %d\n",
          rps_total_score(filename, game_score1));
+  printf("Your total score for part 2 is %d\n",
+         rps_total_score(filename, game_score2));
   return EXIT_SUCCESS;
 }
